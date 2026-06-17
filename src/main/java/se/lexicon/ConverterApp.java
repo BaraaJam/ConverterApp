@@ -72,6 +72,7 @@ public class ConverterApp {
                 } else {
                     System.out.println("Error: Invalid choice. Please Enter item number(1-" + (CONVERTERS_MENU.length + 1) + ").");
                 }
+
             } catch (java.util.InputMismatchException e){
                 System.out.println("Error: That is not a valid number. Try again!");
                 input.nextLine();
@@ -86,26 +87,41 @@ public class ConverterApp {
         System.out.println("  2. SEK to EUR");
 
         while (true) {
-            System.out.print("Your choice: ");
-            int currencyChoice = input.nextInt();
+            try {
+                System.out.print("Your choice: ");
+                int currencyChoice = input.nextInt();
 
-            if (currencyChoice == 1) {
-                System.out.print("Enter amount in SEK: ");
-                double currencyAmount = input.nextDouble();
-                double getConvertResult = currencyAmount / SEK_TO_USD_RATE;
-                System.out.printf("Result: %.2f SEK = %.2f USD\n", currencyAmount, getConvertResult);
-                break;
+                if (currencyChoice == 1) {
+                    System.out.print("Enter amount in SEK: ");
+                    double currencyAmount = input.nextDouble();
+                    if (currencyAmount >= 0) {
+                        double getConvertResult = currencyAmount / SEK_TO_USD_RATE;
+                        System.out.printf("Result: %.2f SEK = %.2f USD\n", currencyAmount, getConvertResult);
+                        break;
 
-            } else if (currencyChoice == 2) {
-                System.out.print("Enter amount in SEK: ");
-                double currencyAmount = input.nextDouble();
-                double getConvertResult = currencyAmount / SEK_TO_EUR_RATE;
-                System.out.printf("Result: %.2f SEK = %.2f EUR\n", currencyAmount, getConvertResult);
+                    } else {
+                        System.out.print("Invalid amount,please try again!\n");
+                    }
 
-                break;
+                } else if (currencyChoice == 2) {
+                    System.out.print("Enter amount in SEK: ");
+                    double currencyAmount = input.nextDouble();
+                    if (currencyAmount >= 0) {
+                        double getConvertResult = currencyAmount / SEK_TO_EUR_RATE;
+                        System.out.printf("Result: %.2f SEK = %.2f EUR\n", currencyAmount, getConvertResult);
+                        break;
 
-            } else {
-                System.out.println("Invalid option.");
+                    } else {
+                        System.out.print("Invalid amount,please try again!\n");
+                    }
+
+                } else {
+                    System.out.println("Invalid option.");
+                }
+
+            } catch (java.util.InputMismatchException e){
+                System.out.println("Invalid input. Please enter a number.");
+                input.nextLine();
             }
         }
     }
@@ -117,26 +133,41 @@ public class ConverterApp {
         System.out.println("  2. Fahrenheit to Celsius");
 
         while (true) {
-            System.out.print("Your choice: ");
-            int tempChoice = input.nextInt();
+            try {
+                System.out.print("Your choice: ");
+                int tempChoice = input.nextInt();
 
-            if (tempChoice == 1) {
-                System.out.print("Enter temperature in Celsius: ");
-                double temperature = input.nextDouble();
-                double getConvertResult = temperature * CELSIUS_TO_FAHRENHEIT + 32;
-                System.out.printf("Result: %.2f C = %.2f F\n", temperature, getConvertResult);
-                break;
+                if (tempChoice == 1) {
+                    System.out.print("Enter temperature in Celsius: ");
+                    double temperature = input.nextDouble();
+                    if (temperature >= -273.15) {
+                        double getConvertResult = temperature * CELSIUS_TO_FAHRENHEIT + 32;
+                        System.out.printf("Result: %.2f C = %.2f F\n", temperature, getConvertResult);
+                        break;
 
-            } else if (tempChoice == 2) {
-                System.out.print("Enter temperature in Fahrenheit: ");
-                double temperature = input.nextDouble();
-                double getConvertResult = (temperature - 32) * FAHRENHEIT_TO_CELSIUS;
-                System.out.printf("Result: %.2f F = %.2f C\n", temperature, getConvertResult);
+                    } else {
+                        System.out.println("Invalid value. Temperature cannot be below absolute zero " + temperature);
+                    }
 
-                break;
+                } else if (tempChoice == 2) {
+                    System.out.print("Enter temperature in Fahrenheit: ");
+                    double temperature = input.nextDouble();
+                    if (temperature >= -459.67) {
+                        double getConvertResult = (temperature - 32) * FAHRENHEIT_TO_CELSIUS;
+                        System.out.printf("Result: %.2f F = %.2f C\n", temperature, getConvertResult);
+                        break;
 
-            } else {
-                System.out.println("Invalid option.");
+                    } else {
+                        System.out.println("Invalid value. Temperature cannot be below absolute zero " + temperature);
+                    }
+
+                } else {
+                    System.out.println("Invalid option.");
+                }
+
+            } catch (java.util.InputMismatchException e){
+                System.out.println("Invalid input. Please enter a number.");
+                input.nextLine();
             }
         }
 
@@ -149,26 +180,39 @@ public class ConverterApp {
         System.out.println("  2. Meters  to Kilometers");
 
         while (true) {
-            System.out.print("Your choice: ");
-            int lengthChoice = input.nextInt();
+            try {
+                System.out.print("Your choice: ");
+                int lengthChoice = input.nextInt();
 
-            if (lengthChoice == 1) {
-                System.out.print("Enter length in centimeters : ");
-                double length = input.nextDouble();
-                double getConvertResult = length / CM_TO_M;
-                System.out.printf("Result: %.2f CM = %.2f M\n", length, getConvertResult);
-                break;
+                if (lengthChoice == 1) {
+                    System.out.print("Enter length in centimeters : ");
+                    double length = input.nextDouble();
+                    if (length >= 0) {
+                        double getConvertResult = length / CM_TO_M;
+                        System.out.printf("Result: %.2f CM = %.2f M\n", length, getConvertResult);
+                        break;
 
-            } else if (lengthChoice == 2) {
-                System.out.print("Enter length in meters : ");
-                double length = input.nextDouble();
-                double getConvertResult = length/ M_TO_KM;
-                System.out.printf("Result: %.2f M = %.2f KM\n", length, getConvertResult);
+                    } else {
+                        System.out.println("Invalid amount. Length cannot be negative.");
+                    }
 
-                break;
+                } else if (lengthChoice == 2) {
+                    System.out.print("Enter length in meters : ");
+                    double length = input.nextDouble();
+                    if (length >= 0) {
+                        double getConvertResult = length / M_TO_KM;
+                        System.out.printf("Result: %.2f M = %.2f KM\n", length, getConvertResult);
+                        break;
+                    } else {
+                        System.out.println("Invalid amount. Length cannot be negative.");
+                    }
+                } else {
+                    System.out.println("Invalid option.");
+                }
 
-            } else {
-                System.out.println("Invalid option.");
+            } catch (java.util.InputMismatchException e){
+                System.out.println("Invalid input. Please enter a number.");
+                input.nextLine();
             }
         }
     }
