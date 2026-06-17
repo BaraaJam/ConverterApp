@@ -2,6 +2,7 @@ package se.lexicon;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.ZoneId;
 
@@ -17,6 +18,7 @@ public class ConverterApp {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
+        ArrayList<String> history = new ArrayList<>();
 
         while(true) {
 
@@ -24,25 +26,27 @@ public class ConverterApp {
             int selectedOption = getValidOption(input);
 
             if (selectedOption == (CONVERTERS_MENU.length + 1)) {
+                printHistory(history);
                 System.out.print("Goodbye!");
                 break;
             }
 
             switch (selectedOption) {
                 case 1:
-                    currencyConverter(input);
+                    currencyConverter(input, history);
                     break;
                 case 2:
-                    temperatureConverter(input);
+                    temperatureConverter(input, history);
                     break;
                 case 3:
-                    lengthConverter(input);
+                    lengthConverter(input, history);
                     break;
             }
 
             System.out.print("\nContinue? (yes/no): ");
             String doContinue = input.next();
             if (doContinue.equalsIgnoreCase("no")) {
+                printHistory(history);
                 System.out.print("Goodbye!");
                 break;
             }
@@ -83,7 +87,7 @@ public class ConverterApp {
         }
     }
 
-    private static void currencyConverter(Scanner input){
+    private static void currencyConverter(Scanner input, ArrayList<String> history){
         System.out.println("--- Currency Converter ---");
         System.out.println("Converter:");
         System.out.println("  1. SEK to USD");
@@ -99,8 +103,12 @@ public class ConverterApp {
                     double currencyAmount = input.nextDouble();
                     if (currencyAmount >= 0) {
                         double getConvertResult = currencyAmount / SEK_TO_USD_RATE;
-                        System.out.printf("Result: %.2f SEK = %.2f USD\n", currencyAmount, getConvertResult);
+                        String resultFormat = String.format("%.2f SEK = %.2f USD", currencyAmount, getConvertResult);
+
+                        System.out.println("Result: " + resultFormat);
                         timeStamp();
+
+                        history.add(resultFormat);
                         break;
 
                     } else {
@@ -112,8 +120,11 @@ public class ConverterApp {
                     double currencyAmount = input.nextDouble();
                     if (currencyAmount >= 0) {
                         double getConvertResult = currencyAmount / SEK_TO_EUR_RATE;
-                        System.out.printf("Result: %.2f SEK = %.2f EUR\n", currencyAmount, getConvertResult);
+                        String resultFormat = String.format("%.2f SEK = %.2f EUR", currencyAmount, getConvertResult);
+                        System.out.println("Result: " + resultFormat);
                         timeStamp();
+
+                        history.add(resultFormat);
                         break;
 
                     } else {
@@ -131,7 +142,7 @@ public class ConverterApp {
         }
     }
 
-    private static void temperatureConverter(Scanner input){
+    private static void temperatureConverter(Scanner input, ArrayList<String> history){
         System.out.println("--- Temperature Converter ---");
         System.out.println("Converter:");
         System.out.println("  1. Celsius to Fahrenheit");
@@ -147,8 +158,12 @@ public class ConverterApp {
                     double temperature = input.nextDouble();
                     if (temperature >= -273.15) {
                         double getConvertResult = temperature * CELSIUS_TO_FAHRENHEIT + 32;
-                        System.out.printf("Result: %.2f C = %.2f F\n", temperature, getConvertResult);
+                        String resultFormat = String.format("%.2f C = %.2f F", temperature, getConvertResult);
+
+                        System.out.println("Result: " + resultFormat);
                         timeStamp();
+
+                        history.add(resultFormat);
                         break;
 
                     } else {
@@ -160,8 +175,12 @@ public class ConverterApp {
                     double temperature = input.nextDouble();
                     if (temperature >= -459.67) {
                         double getConvertResult = (temperature - 32) * FAHRENHEIT_TO_CELSIUS;
-                        System.out.printf("Result: %.2f F = %.2f C\n", temperature, getConvertResult);
+                        String resultFormat = String.format("%.2f F = %.2f C", temperature, getConvertResult);
+
+                        System.out.println("Result: " + resultFormat);
                         timeStamp();
+
+                        history.add(resultFormat);
                         break;
 
                     } else {
@@ -180,7 +199,7 @@ public class ConverterApp {
 
     }
 
-    private static void lengthConverter(Scanner input){
+    private static void lengthConverter(Scanner input, ArrayList<String> history){
         System.out.println("--- Length Converter ---");
         System.out.println("Converter:");
         System.out.println("  1. Centimeters to Meters");
@@ -196,8 +215,12 @@ public class ConverterApp {
                     double length = input.nextDouble();
                     if (length >= 0) {
                         double getConvertResult = length / CM_TO_M;
-                        System.out.printf("Result: %.2f CM = %.2f M\n", length, getConvertResult);
+                        String resultFormat = String.format("%.2f CM = %.2f M", length, getConvertResult);
+
+                        System.out.println("Result: " + resultFormat);
                         timeStamp();
+
+                        history.add(resultFormat);
                         break;
 
                     } else {
@@ -209,8 +232,12 @@ public class ConverterApp {
                     double length = input.nextDouble();
                     if (length >= 0) {
                         double getConvertResult = length / M_TO_KM;
-                        System.out.printf("Result: %.2f M = %.2f KM\n", length, getConvertResult);
+                        String resultFormat = String.format("%.2f M = %.2f KM", length, getConvertResult);
+
+                        System.out.println("Result: " + resultFormat);
                         timeStamp();
+
+                        history.add(resultFormat);
                         break;
                     } else {
                         System.out.println("Invalid amount. Length cannot be negative.");
@@ -235,5 +262,12 @@ public class ConverterApp {
 
     }
 
-}
+    private static void printHistory(ArrayList<String> history) {
+        System.out.print("\n===== Conversion History =====\n");
+        for (int i = 0; i < history.size(); i++) {
+            System.out.printf("%d. %s\n", (i + 1), history.get(i));
+        }
+        System.out.print("==============================\n");
+    }
 
+}
