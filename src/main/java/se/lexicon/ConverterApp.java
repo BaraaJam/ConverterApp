@@ -8,6 +8,8 @@ public class ConverterApp {
     private static final double SEK_TO_EUR_RATE = 11.32;
     private static final double CELSIUS_TO_FAHRENHEIT = 9.0 / 5.0;
     private static final double FAHRENHEIT_TO_CELSIUS = 5.0 / 9.0;
+    private static final double CM_TO_M = 100.0;
+    private static final double M_TO_KM = 1000.0;
 
 
     public static void main(String[] args) {
@@ -31,7 +33,7 @@ public class ConverterApp {
                     temperatureConverter(input);
                     break;
                 case 3:
-                    lengthConverter();
+                    lengthConverter(input);
                     break;
             }
 
@@ -61,7 +63,7 @@ public class ConverterApp {
     private static int getValidOption(Scanner input){
         while (true){
             try {
-                System.out.print("Choose an option ");
+                System.out.print("Choose an option: ");
                 int selectedOption = input.nextInt();
                 input.nextLine();
 
@@ -140,8 +142,35 @@ public class ConverterApp {
 
     }
 
-    private static void lengthConverter(){
-        System.out.print("Length Converter ");
+    private static void lengthConverter(Scanner input){
+        System.out.println("--- Length Converter ---");
+        System.out.println("Converter:");
+        System.out.println("  1. Centimeters to Meters");
+        System.out.println("  2. Meters  to Kilometers");
+
+        while (true) {
+            System.out.print("Your choice: ");
+            int lengthChoice = input.nextInt();
+
+            if (lengthChoice == 1) {
+                System.out.print("Enter length in centimeters : ");
+                double length = input.nextDouble();
+                double getConvertResult = length / CM_TO_M;
+                System.out.printf("Result: %.2f CM = %.2f M\n", length, getConvertResult);
+                break;
+
+            } else if (lengthChoice == 2) {
+                System.out.print("Enter length in meters : ");
+                double length = input.nextDouble();
+                double getConvertResult = length/ M_TO_KM;
+                System.out.printf("Result: %.2f M = %.2f KM\n", length, getConvertResult);
+
+                break;
+
+            } else {
+                System.out.println("Invalid option.");
+            }
+        }
     }
 
 }
