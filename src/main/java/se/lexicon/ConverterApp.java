@@ -1,6 +1,9 @@
 package se.lexicon;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.time.ZoneId;
 
 public class ConverterApp {
     public static final String[] CONVERTERS_MENU = {"Currency Converter", "Temperature Converter", "Length Converter"};
@@ -97,6 +100,7 @@ public class ConverterApp {
                     if (currencyAmount >= 0) {
                         double getConvertResult = currencyAmount / SEK_TO_USD_RATE;
                         System.out.printf("Result: %.2f SEK = %.2f USD\n", currencyAmount, getConvertResult);
+                        timeStamp();
                         break;
 
                     } else {
@@ -109,6 +113,7 @@ public class ConverterApp {
                     if (currencyAmount >= 0) {
                         double getConvertResult = currencyAmount / SEK_TO_EUR_RATE;
                         System.out.printf("Result: %.2f SEK = %.2f EUR\n", currencyAmount, getConvertResult);
+                        timeStamp();
                         break;
 
                     } else {
@@ -143,6 +148,7 @@ public class ConverterApp {
                     if (temperature >= -273.15) {
                         double getConvertResult = temperature * CELSIUS_TO_FAHRENHEIT + 32;
                         System.out.printf("Result: %.2f C = %.2f F\n", temperature, getConvertResult);
+                        timeStamp();
                         break;
 
                     } else {
@@ -155,6 +161,7 @@ public class ConverterApp {
                     if (temperature >= -459.67) {
                         double getConvertResult = (temperature - 32) * FAHRENHEIT_TO_CELSIUS;
                         System.out.printf("Result: %.2f F = %.2f C\n", temperature, getConvertResult);
+                        timeStamp();
                         break;
 
                     } else {
@@ -190,6 +197,7 @@ public class ConverterApp {
                     if (length >= 0) {
                         double getConvertResult = length / CM_TO_M;
                         System.out.printf("Result: %.2f CM = %.2f M\n", length, getConvertResult);
+                        timeStamp();
                         break;
 
                     } else {
@@ -202,6 +210,7 @@ public class ConverterApp {
                     if (length >= 0) {
                         double getConvertResult = length / M_TO_KM;
                         System.out.printf("Result: %.2f M = %.2f KM\n", length, getConvertResult);
+                        timeStamp();
                         break;
                     } else {
                         System.out.println("Invalid amount. Length cannot be negative.");
@@ -215,6 +224,15 @@ public class ConverterApp {
                 input.nextLine();
             }
         }
+    }
+
+    private static void timeStamp() {
+        ZoneId userTime = ZoneId.systemDefault();
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("eeee, yyyy-MM-dd HH:mm");
+        String formattedTime = currentDateTime.format(formatter);
+        System.out.println("Converted at: " + formattedTime + " " + userTime);
+
     }
 
 }
