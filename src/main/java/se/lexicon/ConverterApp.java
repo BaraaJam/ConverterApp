@@ -6,6 +6,8 @@ public class ConverterApp {
     public static final String[] CONVERTERS_MENU = {"Currency Converter", "Temperature Converter", "Length Converter"};
     private static final double SEK_TO_USD_RATE = 10.87;
     private static final double SEK_TO_EUR_RATE = 11.32;
+    private static final double CELSIUS_TO_FAHRENHEIT = 9.0 / 5.0;
+    private static final double FAHRENHEIT_TO_CELSIUS = 5.0 / 9.0;
 
 
     public static void main(String[] args) {
@@ -26,7 +28,7 @@ public class ConverterApp {
                     currencyConverter(input);
                     break;
                 case 2:
-                    temperatureConverter();
+                    temperatureConverter(input);
                     break;
                 case 3:
                     lengthConverter();
@@ -106,8 +108,36 @@ public class ConverterApp {
         }
     }
 
-    private static void temperatureConverter(){
-        System.out.print("Temperature Converter ");
+    private static void temperatureConverter(Scanner input){
+        System.out.println("--- Temperature Converter ---");
+        System.out.println("Converter:");
+        System.out.println("  1. Celsius to Fahrenheit");
+        System.out.println("  2. Fahrenheit to Celsius");
+
+        while (true) {
+            System.out.print("Your choice: ");
+            int tempChoice = input.nextInt();
+
+            if (tempChoice == 1) {
+                System.out.print("Enter temperature in Celsius: ");
+                double temperature = input.nextDouble();
+                double getConvertResult = temperature * CELSIUS_TO_FAHRENHEIT + 32;
+                System.out.printf("Result: %.2f C = %.2f F\n", temperature, getConvertResult);
+                break;
+
+            } else if (tempChoice == 2) {
+                System.out.print("Enter temperature in Fahrenheit: ");
+                double temperature = input.nextDouble();
+                double getConvertResult = (temperature - 32) * FAHRENHEIT_TO_CELSIUS;
+                System.out.printf("Result: %.2f F = %.2f C\n", temperature, getConvertResult);
+
+                break;
+
+            } else {
+                System.out.println("Invalid option.");
+            }
+        }
+
     }
 
     private static void lengthConverter(){
